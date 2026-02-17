@@ -55,9 +55,15 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Open Source & Self-Hosted
+      <div class="hero-badges">
+        <div class="hero-badge wip-badge">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Work in Progress
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Open Source & Self-Hosted
+        </div>
       </div>
       
       <h1>
@@ -66,8 +72,8 @@
       </h1>
       
       <p class="hero-subtitle">
-        Orchestrate AI agent teams with structured goals, tasks, and git-backed workspaces. 
-        Real-time chat, embedded apps, and full autonomy — on your own infrastructure.
+        Orchestrate AI agent teams with goals, tasks, and git-backed workspaces.
+        Self-hosted. No vendor lock-in.
       </p>
       
       <div class="hero-actions">
@@ -293,55 +299,55 @@
         <div class="feature-card">
           <div class="feature-icon">🎯</div>
           <h3>Goals & Tasks</h3>
-          <p>Structure work into goals with granular task breakdowns. Agents report progress in real-time. Track what's done, what's blocked, and what's next.</p>
+          <p>Structured goals with task breakdowns. Real-time progress tracking.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">🏗️</div>
           <h3>Condos (Projects)</h3>
-          <p>Group goals into project workspaces called Condos. Each condo gets its own git repository with isolated agent branches and automatic worktrees.</p>
+          <p>Project workspaces with isolated git repos, branches, and worktrees.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">👥</div>
           <h3>Role-Based Agents</h3>
-          <p>Assign agents to roles: PM, frontend, backend, designer, QA. The PM plans and coordinates, workers execute. Spawn sessions per task automatically.</p>
+          <p>PM, frontend, backend, designer, QA. Auto-spawn sessions per task.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">💬</div>
           <h3>Real-Time Chat</h3>
-          <p>Talk to agents via Telegram, Discord, or the web dashboard. Auto-classification routes messages to the right project. All conversations synced.</p>
+          <p>Telegram, Discord, or web. Auto-routing to the right project.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">🧩</div>
-          <h3>Embedded Apps Platform</h3>
-          <p>Extend functionality with embedded apps. Build custom tools, integrations, and dashboards that run right inside Helix.</p>
+          <h3>Embedded Apps</h3>
+          <p>Extend with custom tools and integrations inside Helix.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">🔗</div>
           <h3>GitHub Integration</h3>
-          <p>Connect agent GitHub accounts. Helix auto-creates repos, pushes code, opens PRs, and invites collaborators. Full automation, full control.</p>
+          <p>Auto-create repos, push code, open PRs. Full automation.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">🌙</div>
           <h3>Dark Theme</h3>
-          <p>A beautiful, eye-friendly dark interface designed for long sessions. Clean typography, smooth animations, and thoughtful spacing.</p>
+          <p>Clean, eye-friendly interface for long sessions.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">📱</div>
-          <h3>Mobile Responsive</h3>
-          <p>Full functionality on any device. Check goals, chat with agents, and review progress from your phone or tablet.</p>
+          <h3>Mobile Ready</h3>
+          <p>Full functionality on any device.</p>
         </div>
         
         <div class="feature-card">
           <div class="feature-icon">🔒</div>
-          <h3>Self-Hosted & Private</h3>
-          <p>Your code, your keys, your data. Run on your own server or local machine. No cloud dependencies, no external services required.</p>
+          <h3>Self-Hosted</h3>
+          <p>Your code, your keys, your data. No cloud dependencies.</p>
         </div>
       </div>
     </div>
@@ -355,9 +361,7 @@
           <span class="section-label">Why Helix?</span>
           <h2>Agent orchestration that<br><span class="gradient-text">actually works</span></h2>
           <p>
-            Most multi-agent systems are chaotic. Agents work in isolation, lose context, 
-            and produce conflicting outputs. Helix fixes this with a goals-first architecture 
-            where every agent knows the plan, their role, and how their work fits the bigger picture.
+            Goals-first architecture. Every agent knows the plan, their role, and how their work fits together.
           </p>
           <ul class="why-list">
             <li>
@@ -447,7 +451,7 @@
           <div class="step-number">1</div>
           <div class="step-content">
             <h3>Describe your project</h3>
-            <p>Tell the PM agent what you want to build. It analyzes the scope, creates a structured plan with goals and tasks, and assigns roles to each piece of work.</p>
+            <p>Tell the PM agent what to build. It creates goals, tasks, and assigns roles.</p>
           </div>
         </div>
         
@@ -455,7 +459,7 @@
           <div class="step-number">2</div>
           <div class="step-content">
             <h3>Review and approve</h3>
-            <p>Check the generated plan in the dashboard. Adjust task priorities, modify assignments, or add context. When ready, click "Kickoff" to spawn worker agents.</p>
+            <p>Adjust the plan if needed. Click "Kickoff" to spawn worker agents.</p>
           </div>
         </div>
         
@@ -463,7 +467,7 @@
           <div class="step-number">3</div>
           <div class="step-content">
             <h3>Agents work autonomously</h3>
-            <p>Each agent works in their own git branch. They update task status, commit code, report blockers, and coordinate through the shared goal context. You can chat with any agent anytime.</p>
+            <p>Each agent works in their own branch, commits code, and coordinates through shared context.</p>
           </div>
         </div>
         
@@ -471,7 +475,7 @@
           <div class="step-number">4</div>
           <div class="step-content">
             <h3>Merge and deploy</h3>
-            <p>Review completed work in git. Merge branches to main. Deploy to Vercel, your server, or anywhere. The goal gets marked done and you move to the next one.</p>
+            <p>Review, merge to main, deploy. Done.</p>
           </div>
         </div>
       </div>
@@ -483,30 +487,85 @@
     <div class="container">
       <div class="section-header">
         <span class="section-label">Get Started</span>
-        <h2 class="section-title">Up and running in minutes</h2>
+        <h2 class="section-title">Installation</h2>
         <p class="section-subtitle">No build step required. Clone, configure, run.</p>
       </div>
       
-      <div class="code-block">
-        <div class="code-header">
-          <div class="code-tabs">
-            <span class="code-tab active">Terminal</span>
+      <!-- Agent/Human Toggle -->
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="human" onclick="switchMode('human')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>
+          I am Human
+        </button>
+        <button class="mode-btn" data-mode="agent" onclick="switchMode('agent')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M7 15h.01M17 15h.01"/></svg>
+          I am Agent
+        </button>
+      </div>
+      
+      <!-- Human Mode Instructions -->
+      <div class="mode-content active" id="mode-human">
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-tabs">
+              <span class="code-tab active">Terminal</span>
+            </div>
+            <button class="code-copy" onclick="copyCode('human')">Copy</button>
           </div>
-          <button class="code-copy" onclick="copyCode()">Copy</button>
-        </div>
-        <div class="code-body">
-          <pre><span class="comment"># Clone the repository</span>
+          <div class="code-body">
+            <pre id="code-human"><span class="comment"># Clone and install</span>
 <span class="command">git clone</span> https://github.com/Adrian-Luerssen/Helix.git
 <span class="command">cd</span> Helix && <span class="command">npm install</span>
 
-<span class="comment"># Configure your gateway connection</span>
+<span class="comment"># Configure gateway connection</span>
 <span class="command">cp</span> config.example.json config.json
-<span class="comment"># Edit config.json with your OpenClaw gateway URL</span>
+<span class="comment"># Edit config.json: set your OpenClaw gateway URL</span>
 
-<span class="comment"># Start the dashboard</span>
+<span class="comment"># Start</span>
 <span class="command">node</span> serve.js
-
-<span class="comment"># Open http://localhost:9000 🚀</span></pre>
+<span class="comment"># → http://localhost:9000</span></pre>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Agent Mode Instructions -->
+      <div class="mode-content" id="mode-agent">
+        <div class="agent-instructions">
+          <div class="agent-step">
+            <div class="agent-step-number">1</div>
+            <div class="agent-step-content">
+              <h4>Clone Repository</h4>
+              <code>git clone https://github.com/Adrian-Luerssen/Helix.git && cd Helix</code>
+            </div>
+          </div>
+          <div class="agent-step">
+            <div class="agent-step-number">2</div>
+            <div class="agent-step-content">
+              <h4>Install Dependencies</h4>
+              <code>npm install</code>
+            </div>
+          </div>
+          <div class="agent-step">
+            <div class="agent-step-number">3</div>
+            <div class="agent-step-content">
+              <h4>Configure</h4>
+              <p>Copy <code>config.example.json</code> to <code>config.json</code></p>
+              <p>Set <code>gatewayUrl</code> to your OpenClaw gateway endpoint</p>
+              <p>Set <code>gatewayToken</code> if authentication is required</p>
+            </div>
+          </div>
+          <div class="agent-step">
+            <div class="agent-step-number">4</div>
+            <div class="agent-step-content">
+              <h4>Run</h4>
+              <code>node serve.js</code>
+              <p>Dashboard available at <code>http://localhost:9000</code></p>
+            </div>
+          </div>
+        </div>
+        <div class="agent-note">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <span>These instructions are optimized for AI agent execution. Each step is atomic and verifiable.</span>
         </div>
       </div>
     </div>
@@ -516,7 +575,7 @@
   <section class="cta">
     <div class="container cta-content">
       <h2>Ready to orchestrate your <span class="gradient-text">AI team</span>?</h2>
-      <p>Star the repo, try it locally, and join the community.</p>
+      <p>Star the repo and get started.</p>
       
       <div class="cta-actions">
         <a href="https://github.com/Adrian-Luerssen/Helix" target="_blank" class="btn btn-primary btn-lg">
@@ -566,13 +625,32 @@
   </footer>
 
   <script>
+    // Mode switching
+    function switchMode(mode) {
+      // Update buttons
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+      });
+      // Update content
+      document.querySelectorAll('.mode-content').forEach(content => {
+        content.classList.toggle('active', content.id === 'mode-' + mode);
+      });
+    }
+    
     // Copy code functionality
-    function copyCode() {
-      const code = document.querySelector('.code-body pre').textContent;
+    function copyCode(mode) {
+      const codeEl = mode === 'human' 
+        ? document.getElementById('code-human')
+        : document.querySelector('.agent-instructions');
+      const code = codeEl.textContent;
       navigator.clipboard.writeText(code).then(() => {
-        const btn = document.querySelector('.code-copy');
-        btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = 'Copy', 2000);
+        const btns = document.querySelectorAll('.code-copy');
+        btns.forEach(btn => {
+          if (btn.closest('.mode-content.active')) {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+          }
+        });
       });
     }
     
