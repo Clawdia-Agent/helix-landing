@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helix - Goals-First Multi-Agent Dashboard</title>
+  <meta name="description" content="Orchestrate AI agent teams with goals, tasks, and git-backed workspaces. Self-hosted, open source, and designed for autonomous work.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #14141f;
+      --surface-hover: #1a1a28;
+      --border: #2a2a3a;
+      --text: #e0e0e8;
+      --text-dim: #8888a0;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --accent-glow: rgba(99, 102, 241, 0.3);
+      --success: #22c55e;
+      --gradient-start: #6366f1;
+      --gradient-end: #a78bfa;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+    }
+    
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    
+    .logo span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover { color: var(--text); }
+    
+    .nav-cta {
+      padding: 8px 20px;
+      background: var(--accent);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    
+    .nav-cta:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hero .subtitle {
+      font-size: 1.35rem;
+      color: var(--text-dim);
+      max-width: 650px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    
+    .hero-cta {
+      display: inline-flex;
+      gap: 16px;
+      position: relative;
+    }
+    
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 30px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--text-dim);
+    }
+    
+    /* Features */
+    .features {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+    
+    .feature-card p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+    
+    /* How it works */
+    .how-it-works {
+      padding: 80px 0;
+      background: var(--surface);
+    }
+    
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    
+    .step-content h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+    
+    .step-content p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+    
+    /* Install */
+    .install {
+      padding: 80px 0;
+    }
+    
+    .code-block {
+      background: #0d0d14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+    
+    .code-block pre {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    
+    .code-block .comment { color: var(--text-dim); }
+    .code-block .command { color: var(--accent-hover); }
+    
+    /* CTA Section */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+    }
+    
+    .cta-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+    
+    .cta-section p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    
+    .footer-links a:hover { color: var(--text); }
+    
+    .footer-copy {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero .subtitle { font-size: 1.1rem; }
+      .nav-links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-cta { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">🧬 <span>Helix</span></a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="https://github.com/acastellana/clawcondos" target="_blank">GitHub</a></li>
+      </ul>
+      <a href="#install" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Goals-First <span>Multi-Agent</span> Dashboard</h1>
+      <p class="subtitle">Orchestrate AI agent teams with goals, tasks, and git-backed workspaces. Self-hosted, open source, and designed for autonomous work.</p>
+      <div class="hero-cta">
+        <a href="#install" class="btn btn-primary">
+          Quick Start →
+        </a>
+        <a href="https://github.com/acastellana/clawcondos" class="btn btn-secondary" target="_blank">
+          ⭐ Star on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Built for Autonomous AI Teams</h2>
+      <p class="section-subtitle">Everything you need to manage multi-agent projects — from planning to deployment.</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Goals & Tasks</h3>
+          <p>Structure work into goals with task breakdowns. Agents report progress in real-time. Track what's done, what's blocked, and what's next.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🏢</div>
+          <h3>Condos (Projects)</h3>
+          <p>Group goals into projects. Each condo gets its own git workspace. Agents work in isolated branches with automatic worktrees.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Role-Based Teams</h3>
+          <p>Assign agents to roles: PM, frontend, backend, designer, QA. The PM plans, the workers execute. Spawn sessions per task.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>GitHub Integration</h3>
+          <p>Connect an agent GitHub account. Helix auto-creates repos, pushes code, and invites you as collaborator. Full autonomy, full control.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Multi-Channel Chat</h3>
+          <p>Talk to agents via Telegram, Discord, or the web dashboard. Auto-classification routes messages to the right project.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Self-Hosted & Private</h3>
+          <p>Your code, your keys, your data. Run on your own server or local machine. No cloud dependencies required.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">From idea to deployed code in autonomous steps.</p>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Describe your project</h3>
+            <p>Tell the PM agent what you want to build. It creates a plan with goals, tasks, and role assignments.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Review and approve</h3>
+            <p>Check the plan. Adjust tasks if needed. Click "Kickoff" to spawn worker agents for each task.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Agents work autonomously</h3>
+            <p>Each agent works in their own git branch. They update task status, commit code, and report blockers.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Merge and deploy</h3>
+            <p>Review completed work. Merge branches. Deploy to Vercel, your server, or wherever you need.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section class="install" id="install">
+    <div class="container">
+      <h2 class="section-title">Quick Start</h2>
+      <p class="section-subtitle">Up and running in 2 minutes.</p>
+      
+      <div class="code-block">
+        <pre><span class="comment"># Clone and install</span>
+<span class="command">git clone</span> https://github.com/acastellana/clawcondos.git
+<span class="command">cd</span> clawcondos && <span class="command">npm install</span>
+
+<span class="comment"># Configure your gateway connection</span>
+<span class="command">cp</span> config.example.json config.json
+<span class="comment"># Edit config.json with your OpenClaw gateway URL</span>
+
+<span class="comment"># Start the dashboard</span>
+<span class="command">node</span> serve.js
+
+<span class="comment"># Open http://localhost:9000</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to orchestrate your AI team?</h2>
+      <p>Star the repo, try it out, and join the community.</p>
+      <div class="hero-cta">
+        <a href="https://github.com/acastellana/clawcondos" class="btn btn-primary" target="_blank">
+          View on GitHub →
+        </a>
+        <a href="https://discord.gg/clawd" class="btn btn-secondary" target="_blank">
+          💬 Join Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/acastellana/clawcondos" target="_blank">GitHub</a>
+        <a href="https://github.com/acastellana/clawcondos/blob/master/docs/SETUP.md" target="_blank">Documentation</a>
+        <a href="https://discord.gg/clawd" target="_blank">Discord</a>
+        <a href="https://github.com/acastellana/clawcondos/issues" target="_blank">Issues</a>
+      </div>
+      <p class="footer-copy">Helix is open source under MIT License. Built with ❤️ by the OpenClaw community.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
