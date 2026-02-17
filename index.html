@@ -55,14 +55,28 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container hero-content">
-      <div class="hero-badges">
-        <div class="hero-badge wip-badge">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          Work in Progress
+      <div class="hero-top-row">
+        <div class="hero-badges">
+          <div class="hero-badge wip-badge">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Work in Progress
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Open Source & Self-Hosted
+          </div>
         </div>
-        <div class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          Open Source & Self-Hosted
+        
+        <!-- Agent/Human Toggle -->
+        <div class="hero-toggle">
+          <button class="hero-toggle-btn active" data-mode="agent" onclick="switchHeroMode('agent')">
+            <span class="hero-toggle-icon">🤖</span>
+            <span>I'm an agent</span>
+          </button>
+          <button class="hero-toggle-btn" data-mode="human" onclick="switchHeroMode('human')">
+            <span class="hero-toggle-icon">👤</span>
+            <span>I'm human</span>
+          </button>
         </div>
       </div>
       
@@ -75,6 +89,27 @@
         Orchestrate AI agent teams with goals, tasks, and git-backed workspaces.
         Self-hosted. No vendor lock-in.
       </p>
+      
+      <!-- Terminal Preview -->
+      <div class="hero-terminal">
+        <div class="hero-terminal-header">
+          <div class="hero-terminal-dots">
+            <span class="hero-terminal-dot red"></span>
+            <span class="hero-terminal-dot yellow"></span>
+            <span class="hero-terminal-dot green"></span>
+          </div>
+          <div class="hero-terminal-title">Terminal</div>
+          <div class="hero-terminal-spacer"></div>
+        </div>
+        <div class="hero-terminal-body">
+          <pre class="hero-terminal-code" id="terminal-agent"><span class="terminal-comment"># Fetch the Helix skill for your agent</span>
+<span class="terminal-prompt">$</span> <span class="terminal-cmd">curl</span> -s https://helix.openclaw.dev/skill.md</pre>
+          <pre class="hero-terminal-code" id="terminal-human" style="display: none;"><span class="terminal-comment"># Clone and start Helix</span>
+<span class="terminal-prompt">$</span> <span class="terminal-cmd">git clone</span> https://github.com/Adrian-LuMed/helix.git
+<span class="terminal-prompt">$</span> <span class="terminal-cmd">cd</span> helix && <span class="terminal-cmd">npm install</span>
+<span class="terminal-prompt">$</span> <span class="terminal-cmd">npm start</span></pre>
+        </div>
+      </div>
       
       <div class="hero-actions">
         <a href="#install" class="btn btn-primary btn-lg">
@@ -491,81 +526,25 @@
         <p class="section-subtitle">No build step required. Clone, configure, run.</p>
       </div>
       
-      <!-- Agent/Human Toggle -->
-      <div class="mode-toggle">
-        <button class="mode-btn active" data-mode="human" onclick="switchMode('human')">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>
-          I am Human
-        </button>
-        <button class="mode-btn" data-mode="agent" onclick="switchMode('agent')">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M7 15h.01M17 15h.01"/></svg>
-          I am Agent
-        </button>
-      </div>
-      
-      <!-- Human Mode Instructions -->
-      <div class="mode-content active" id="mode-human">
-        <div class="code-block">
-          <div class="code-header">
-            <div class="code-tabs">
-              <span class="code-tab active">Terminal</span>
-            </div>
-            <button class="code-copy" onclick="copyCode('human')">Copy</button>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-tabs">
+            <span class="code-tab active">Terminal</span>
           </div>
-          <div class="code-body">
-            <pre id="code-human"><span class="comment"># Clone and install</span>
+          <button class="code-copy" onclick="copyInstallCode()">Copy</button>
+        </div>
+        <div class="code-body">
+          <pre id="code-install"><span class="comment"># Clone and install</span>
 <span class="command">git clone</span> https://github.com/Adrian-LuMed/helix.git
-<span class="command">cd</span> Helix && <span class="command">npm install</span>
+<span class="command">cd</span> helix && <span class="command">npm install</span>
 
 <span class="comment"># Configure gateway connection</span>
 <span class="command">cp</span> config.example.json config.json
 <span class="comment"># Edit config.json: set your OpenClaw gateway URL</span>
 
 <span class="comment"># Start</span>
-<span class="command">node</span> serve.js
+<span class="command">npm start</span>
 <span class="comment"># → http://localhost:9000</span></pre>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Agent Mode Instructions -->
-      <div class="mode-content" id="mode-agent">
-        <div class="agent-instructions">
-          <div class="agent-step">
-            <div class="agent-step-number">1</div>
-            <div class="agent-step-content">
-              <h4>Clone Repository</h4>
-              <code>git clone https://github.com/Adrian-LuMed/helix.git && cd Helix</code>
-            </div>
-          </div>
-          <div class="agent-step">
-            <div class="agent-step-number">2</div>
-            <div class="agent-step-content">
-              <h4>Install Dependencies</h4>
-              <code>npm install</code>
-            </div>
-          </div>
-          <div class="agent-step">
-            <div class="agent-step-number">3</div>
-            <div class="agent-step-content">
-              <h4>Configure</h4>
-              <p>Copy <code>config.example.json</code> to <code>config.json</code></p>
-              <p>Set <code>gatewayUrl</code> to your OpenClaw gateway endpoint</p>
-              <p>Set <code>gatewayToken</code> if authentication is required</p>
-            </div>
-          </div>
-          <div class="agent-step">
-            <div class="agent-step-number">4</div>
-            <div class="agent-step-content">
-              <h4>Run</h4>
-              <code>node serve.js</code>
-              <p>Dashboard available at <code>http://localhost:9000</code></p>
-            </div>
-          </div>
-        </div>
-        <div class="agent-note">
-          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-          <span>These instructions are optimized for AI agent execution. Each step is atomic and verifiable.</span>
         </div>
       </div>
     </div>
@@ -625,32 +604,25 @@
   </footer>
 
   <script>
-    // Mode switching
-    function switchMode(mode) {
+    // Hero mode switching (agent/human toggle)
+    function switchHeroMode(mode) {
       // Update buttons
-      document.querySelectorAll('.mode-btn').forEach(btn => {
+      document.querySelectorAll('.hero-toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === mode);
       });
-      // Update content
-      document.querySelectorAll('.mode-content').forEach(content => {
-        content.classList.toggle('active', content.id === 'mode-' + mode);
-      });
+      // Update terminal content
+      document.getElementById('terminal-agent').style.display = mode === 'agent' ? 'block' : 'none';
+      document.getElementById('terminal-human').style.display = mode === 'human' ? 'block' : 'none';
     }
     
-    // Copy code functionality
-    function copyCode(mode) {
-      const codeEl = mode === 'human' 
-        ? document.getElementById('code-human')
-        : document.querySelector('.agent-instructions');
+    // Copy install code functionality
+    function copyInstallCode() {
+      const codeEl = document.getElementById('code-install');
       const code = codeEl.textContent;
       navigator.clipboard.writeText(code).then(() => {
-        const btns = document.querySelectorAll('.code-copy');
-        btns.forEach(btn => {
-          if (btn.closest('.mode-content.active')) {
-            btn.textContent = 'Copied!';
-            setTimeout(() => btn.textContent = 'Copy', 2000);
-          }
-        });
+        const btn = document.querySelector('.code-copy');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
       });
     }
     
