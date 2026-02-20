@@ -13,7 +13,7 @@
   
   --text-primary: #f0f0f5;
   --text-secondary: #a0a0b8;
-  --text-tertiary: #6b6b80;
+  --text-tertiary: #8585a0; /* Improved contrast ratio for WCAG AA */
   
   --accent-indigo: #6366f1;
   --accent-indigo-hover: #818cf8;
@@ -39,6 +39,27 @@
   
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  
+  /* Spacing scale (8px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-30: 120px;
+  
+  /* Typography scale */
+  --text-lg: 1.25rem;   /* Hero subtitle, CTA */
+  --text-md: 1.1rem;    /* Section descriptions */
+  --text-base: 1rem;    /* Default body */
+  --text-sm: 0.9rem;    /* Cards, secondary */
 }
 
 /* Reset & Base */
@@ -46,6 +67,33 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Skip Link for Accessibility */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;
+  width: auto;
+  height: auto;
+  padding: 12px 24px;
+  background: var(--accent-indigo);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
 }
 
 html {
@@ -490,7 +538,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Screenshot Showcase */
 .showcase {
-  padding: 80px 0;
+  padding: var(--space-30) 0; /* Standardized 120px */
   position: relative;
 }
 
@@ -601,7 +649,7 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--bg-primary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 32px;
+  padding: 28px; /* More balanced density */
   transition: all 0.3s ease;
 }
 
@@ -620,12 +668,12 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   font-size: 1.75rem;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-4); /* 16px - aligned to 8px grid */
 }
 
 .feature-card h3 {
   font-size: 1.2rem;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-2); /* 8px - tighter coupling to description */
 }
 
 .feature-card p {
@@ -642,12 +690,12 @@ h1, h2, h3, h4, h5, h6 {
 .why-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: var(--space-16); /* 64px - slightly tighter but still spacious */
   align-items: center;
 }
 
 .why-content h2 {
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-size: clamp(1.75rem, 4vw, 2.5rem); /* Match other h2s for consistency */
   margin-bottom: 24px;
 }
 
@@ -713,6 +761,21 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 16px;
+  /* Entrance animation */
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: slideInCard 0.4s ease forwards;
+}
+
+.why-card:nth-child(2) { animation-delay: 0.1s; }
+.why-card:nth-child(3) { animation-delay: 0.2s; }
+.why-card:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes slideInCard {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .why-card-icon {
@@ -854,6 +917,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .mode-btn.active svg {
   color: white;
+}
+
+.mode-btn:focus-visible {
+  outline: 2px solid var(--accent-indigo);
+  outline-offset: 2px;
 }
 
 /* Mode Content */
@@ -1010,6 +1078,11 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-secondary);
 }
 
+.code-copy:focus-visible {
+  outline: 2px solid var(--accent-indigo);
+  outline-offset: 2px;
+}
+
 .code-body {
   padding: 24px;
   overflow-x: auto;
@@ -1126,6 +1199,11 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
+.footer-links a:focus-visible {
+  outline: 2px solid var(--accent-indigo);
+  outline-offset: 2px;
+}
+
 .footer-copy {
   color: var(--text-tertiary);
   font-size: 0.85rem;
@@ -1133,7 +1211,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Screenshots Gallery */
 .screenshots-gallery {
-  padding: 80px 0 120px;
+  padding: var(--space-30) 0; /* Standardized 120px */
 }
 
 .screenshots-grid {
@@ -1206,7 +1284,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 1024px) {
   .why-grid {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: var(--space-12); /* 48px */
   }
   
   .why-visual {
