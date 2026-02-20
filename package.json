@@ -1,0 +1,25 @@
+{
+  "name": "helix-landing",
+  "version": "1.0.0",
+  "description": "Informational landing page for Helix.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "serve": "npx http-server . -p 3000 -c-1",
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:headed": "npx playwright test --headed",
+    "test:update-snapshots": "npx playwright test --update-snapshots",
+    "test:report": "npx playwright show-report"
+  },
+  "keywords": ["helix", "dashboard", "landing-page", "ai-agents"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "http-server": "^14.1.1",
+    "typescript": "^5.9.3"
+  }
+}
