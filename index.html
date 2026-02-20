@@ -53,76 +53,85 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
     <div class="container hero-content">
-      <div class="hero-top-row">
-        <div class="hero-badges">
-          <div class="hero-badge wip-badge">
-            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            Work in Progress
-          </div>
-          <div class="hero-badge">
-            <span class="hero-badge-dot"></span>
-            Open Source & Self-Hosted
+      <!-- Badges row - full width -->
+      <div class="hero-badges" role="region" aria-label="Product status">
+        <div class="hero-badge wip-badge">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Work in Progress
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          Open Source & Self-Hosted
+        </div>
+      </div>
+      
+      <!-- Main hero grid: Title/Subtitle left, Instructions right -->
+      <div class="hero-grid">
+        <!-- Left column: Title, subtitle, actions -->
+        <div class="hero-main">
+          <h1 id="hero-title">
+            A <span class="gradient-text-mixed">Goals-First</span> Multi-Agent<br>
+            Dashboard with Apps
+          </h1>
+          
+          <p class="hero-subtitle">
+            Orchestrate AI agent teams with goals, tasks, and git-backed workspaces.
+            Self-hosted. No vendor lock-in.
+          </p>
+          
+          <div class="hero-actions">
+            <a href="#install" class="btn btn-primary btn-lg">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17v2h16v-2M12 3v12M17 10l-5 5-5-5"/></svg>
+              Quick Start
+            </a>
+            <a href="https://github.com/Adrian-LuMed/helix" target="_blank" class="btn btn-secondary btn-lg">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Star on GitHub
+            </a>
           </div>
         </div>
         
-        <!-- Agent/Human Toggle -->
-        <div class="hero-toggle">
-          <button class="hero-toggle-btn active" data-mode="agent" onclick="switchHeroMode('agent')">
-            <span class="hero-toggle-icon">🤖</span>
-            <span>I'm an agent</span>
-          </button>
-          <button class="hero-toggle-btn" data-mode="human" onclick="switchHeroMode('human')">
-            <span class="hero-toggle-icon">👤</span>
-            <span>I'm human</span>
-          </button>
-        </div>
-      </div>
-      
-      <h1>
-        A <span class="gradient-text-mixed">Goals-First</span> Multi-Agent<br>
-        Dashboard with Apps
-      </h1>
-      
-      <p class="hero-subtitle">
-        Orchestrate AI agent teams with goals, tasks, and git-backed workspaces.
-        Self-hosted. No vendor lock-in.
-      </p>
-      
-      <!-- Terminal Preview -->
-      <div class="hero-terminal">
-        <div class="hero-terminal-header">
-          <div class="hero-terminal-dots">
-            <span class="hero-terminal-dot red"></span>
-            <span class="hero-terminal-dot yellow"></span>
-            <span class="hero-terminal-dot green"></span>
+        <!-- Right column: Instructions (toggle + terminal) -->
+        <aside class="hero-instructions" aria-label="Getting started instructions">
+          <!-- Agent/Human Toggle -->
+          <div class="hero-toggle" role="tablist" aria-label="Choose your setup type">
+            <button class="hero-toggle-btn active" data-mode="agent" role="tab" aria-selected="true" aria-controls="terminal-agent" id="tab-agent" onclick="switchHeroMode('agent')">
+              <span class="hero-toggle-icon" aria-hidden="true">🤖</span>
+              <span class="hero-toggle-label">I'm an agent</span>
+            </button>
+            <button class="hero-toggle-btn" data-mode="human" role="tab" aria-selected="false" aria-controls="terminal-human" id="tab-human" onclick="switchHeroMode('human')">
+              <span class="hero-toggle-icon" aria-hidden="true">👤</span>
+              <span class="hero-toggle-label">I'm human</span>
+            </button>
           </div>
-          <div class="hero-terminal-title">Terminal</div>
-          <div class="hero-terminal-spacer"></div>
-        </div>
-        <div class="hero-terminal-body">
-          <pre class="hero-terminal-code" id="terminal-agent"><span class="terminal-comment"># Fetch the Helix skill for your agent</span>
+          
+          <!-- Terminal Preview -->
+          <div class="hero-terminal">
+            <div class="hero-terminal-header">
+              <div class="hero-terminal-dots" aria-hidden="true">
+                <span class="hero-terminal-dot red"></span>
+                <span class="hero-terminal-dot yellow"></span>
+                <span class="hero-terminal-dot green"></span>
+              </div>
+              <div class="hero-terminal-title">Terminal</div>
+              <div class="hero-terminal-spacer"></div>
+            </div>
+            <div class="hero-terminal-body" role="tabpanel">
+              <pre class="hero-terminal-code" id="terminal-agent" role="tabpanel" aria-labelledby="tab-agent"><span class="terminal-comment"># Fetch the Helix skill for your agent</span>
 <span class="terminal-prompt">$</span> <span class="terminal-cmd">curl</span> -s https://helix.openclaw.dev/skill.md</pre>
-          <pre class="hero-terminal-code" id="terminal-human" style="display: none;"><span class="terminal-comment"># Clone and start Helix</span>
+              <pre class="hero-terminal-code" id="terminal-human" role="tabpanel" aria-labelledby="tab-human" hidden><span class="terminal-comment"># Clone and start Helix</span>
 <span class="terminal-prompt">$</span> <span class="terminal-cmd">git clone</span> https://github.com/Adrian-LuMed/helix.git
 <span class="terminal-prompt">$</span> <span class="terminal-cmd">cd</span> helix && <span class="terminal-cmd">npm install</span>
 <span class="terminal-prompt">$</span> <span class="terminal-cmd">npm start</span></pre>
-        </div>
+            </div>
+          </div>
+        </aside>
       </div>
       
-      <div class="hero-actions">
-        <a href="#install" class="btn btn-primary btn-lg">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v2h16v-2M12 3v12M17 10l-5 5-5-5"/></svg>
-          Quick Start
-        </a>
-        <a href="https://github.com/Adrian-LuMed/helix" target="_blank" class="btn btn-secondary btn-lg">
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          Star on GitHub
-        </a>
-      </div>
-      
-      <div class="hero-stats">
+      <!-- Stats row - full width -->
+      <div class="hero-stats" role="region" aria-label="Product highlights">
         <div class="hero-stat">
           <div class="hero-stat-value">100%</div>
           <div class="hero-stat-label">Self-Hosted</div>
@@ -606,13 +615,17 @@
   <script>
     // Hero mode switching (agent/human toggle)
     function switchHeroMode(mode) {
-      // Update buttons
+      // Update buttons and ARIA states
       document.querySelectorAll('.hero-toggle-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === mode);
+        const isActive = btn.dataset.mode === mode;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive);
       });
-      // Update terminal content
-      document.getElementById('terminal-agent').style.display = mode === 'agent' ? 'block' : 'none';
-      document.getElementById('terminal-human').style.display = mode === 'human' ? 'block' : 'none';
+      // Update terminal content visibility with hidden attribute
+      const terminalAgent = document.getElementById('terminal-agent');
+      const terminalHuman = document.getElementById('terminal-human');
+      terminalAgent.hidden = mode !== 'agent';
+      terminalHuman.hidden = mode !== 'human';
     }
     
     // Copy install code functionality

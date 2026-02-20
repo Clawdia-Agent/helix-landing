@@ -211,11 +211,17 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-lg);
 }
 
+/* Accessibility: Focus states */
+.btn:focus-visible,
+.nav-links a:focus-visible {
+  outline: 2px solid var(--accent-indigo);
+  outline-offset: 2px;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
-  padding: 180px 0 120px;
-  text-align: center;
+  padding: 160px 0 100px;
   overflow: hidden;
 }
 
@@ -247,19 +253,54 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1;
 }
 
-.hero-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
+/* Badges row - full width */
 .hero-badges {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+/* Hero Grid - side-by-side layout */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+/* Left column: Title & actions */
+.hero-main {
+  text-align: left;
+}
+
+.hero-main h1 {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  margin-bottom: 24px;
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Right column: Instructions (toggle + terminal) */
+.hero-instructions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* Hero Toggle */
@@ -270,6 +311,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50px;
   padding: 4px;
   gap: 4px;
+  width: fit-content;
 }
 
 .hero-toggle-btn {
@@ -279,6 +321,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 20px;
   font-size: 0.9rem;
   font-weight: 600;
+  font-family: inherit;
   color: var(--text-secondary);
   background: transparent;
   border: none;
@@ -291,6 +334,11 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
+.hero-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent-indigo);
+  outline-offset: 2px;
+}
+
 .hero-toggle-btn.active {
   color: var(--text-primary);
   background: var(--accent-indigo);
@@ -301,10 +349,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.1rem;
 }
 
+.hero-toggle-label {
+  white-space: nowrap;
+}
+
 /* Hero Terminal Preview */
 .hero-terminal {
-  max-width: 600px;
-  margin: 0 auto 48px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
@@ -413,35 +463,12 @@ h1, h2, h3, h4, h5, h6 {
   50% { opacity: 0.5; }
 }
 
-.hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  margin-bottom: 24px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  max-width: 680px;
-  margin: 0 auto 48px;
-  line-height: 1.7;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
+/* Hero Stats - full width, centered */
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 48px;
-  margin-top: 80px;
-  padding-top: 48px;
+  gap: 64px;
+  padding-top: 56px;
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -1183,7 +1210,55 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .why-visual {
-    order: -1;
+    order: 1; /* Keep after content on mobile per UX audit */
+  }
+  
+  /* Hero grid stacks on tablet/mobile */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    text-align: center;
+  }
+  
+  .hero-main {
+    text-align: center;
+  }
+  
+  .hero-main h1 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  .hero-instructions {
+    align-items: center;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Tablet breakpoint per UX audit */
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .screenshots-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    font-size: 0.85rem;
   }
 }
 
@@ -1196,27 +1271,33 @@ h1, h2, h3, h4, h5, h6 {
     padding: 140px 0 80px;
   }
   
-  .hero-top-row {
-    flex-direction: column;
-    align-items: center;
+  .hero-badges {
+    margin-bottom: 32px;
   }
   
-  .hero-toggle {
-    order: -1;
-    margin-bottom: 8px;
+  .hero-grid {
+    gap: 40px;
   }
   
+  /* Shorter toggle labels on mobile */
   .hero-toggle-btn {
     padding: 8px 14px;
     font-size: 0.85rem;
   }
   
-  .hero-toggle-btn span:not(.hero-toggle-icon) {
+  .hero-toggle-label {
     display: none;
   }
   
-  .hero-terminal {
-    margin: 0 auto 32px;
+  /* Show abbreviated labels via pseudo-elements */
+  .hero-toggle-btn[data-mode="agent"] .hero-toggle-icon::after {
+    content: " Agent";
+    font-size: 0.85rem;
+  }
+  
+  .hero-toggle-btn[data-mode="human"] .hero-toggle-icon::after {
+    content: " Human";
+    font-size: 0.85rem;
   }
   
   .hero-terminal-body {
@@ -1227,14 +1308,7 @@ h1, h2, h3, h4, h5, h6 {
   .hero-stats {
     flex-direction: column;
     gap: 24px;
-  }
-  
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .screenshots-grid {
-    grid-template-columns: 1fr;
+    padding-top: 40px;
   }
   
   .step {
@@ -1268,7 +1342,6 @@ h1, h2, h3, h4, h5, h6 {
   .hero-actions {
     flex-direction: column;
     width: 100%;
-    padding: 0 16px;
   }
   
   .hero-actions .btn {
