@@ -1,0 +1,5 @@
+{
+  "chromium": true,
+  "firefox": true,
+  "webkit": false
+}

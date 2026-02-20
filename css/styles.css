@@ -151,6 +151,7 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   z-index: 1000;
   background: rgba(15, 15, 20, 0.85);
+  -webkit-backdrop-filter: blur(16px); /* Safari */
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -585,6 +586,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .showcase-content {
   aspect-ratio: 16/9;
+  /* Fallback for older Safari versions that don't support aspect-ratio */
+  min-height: 400px;
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   display: flex;
   align-items: center;
